@@ -1,6 +1,6 @@
 # `secinject` (Secret Injector) Utility
 
-This macOS command line utility reads a shell environment variable file (hopefully located somewhere away from your project, like ~/.env) with exports for secrets, keys, tokens, etc. and creates a swanky key/value enum out of those exports in a Swift file in your Xcode project. It's meant to be run during the build process before compilation. Its purpose is to keep hard-coded secrets out of your source code repositories. Hard coding such things is a HUGE NO-NO, of course.
+This macOS command line utility reads a shell environment variable file (hopefully located somewhere away from your project, like `~/.env`) with exports for secrets, keys, tokens, etc. and creates a swanky key/value enum out of those exports in a Swift file in your Xcode project. It's meant to be run during the build process before compilation. Its purpose is to keep hard-coded secrets out of your source code repositories. Hard coding such things is a HUGE NO-NO, of course.
 
 # Using `secinject`
 
