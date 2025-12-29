@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A11366B72F0315AA00A20933 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A11366B62F0315A600A20933 /* README.md */; };
+		A11366B92F03168200A20933 /* AGENTS.md in Sources */ = {isa = PBXBuildFile; fileRef = A11366B82F03167A00A20933 /* AGENTS.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		A11366A72F03153C00A20933 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -20,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		A11366A92F03153C00A20933 /* secinject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = secinject; sourceTree = BUILT_PRODUCTS_DIR; };
+		A11366B62F0315A600A20933 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
+		A11366B82F03167A00A20933 /* AGENTS.md */ = {isa = PBXFileReference; explicitFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -46,6 +53,8 @@
 			children = (
 				A11366AB2F03153C00A20933 /* secinject */,
 				A11366AA2F03153C00A20933 /* Products */,
+				A11366B62F0315A600A20933 /* README.md */,
+				A11366B82F03167A00A20933 /* AGENTS.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -121,6 +130,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A11366B72F0315AA00A20933 /* README.md in Sources */,
+				A11366B92F03168200A20933 /* AGENTS.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
