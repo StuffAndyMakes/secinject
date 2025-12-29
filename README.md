@@ -30,9 +30,16 @@ swiftc main.swift -o secinject
 mv secinject /usr/local/bin/  # Optional: Move to a directory in your PATH
 ```
 
-## File Formats
+## Files and Formats
 
 ### Input: Environment File
+
+The secrets file you wish to use defaults to `~/.env`, but you can use your own with the `-s` or `--secrets-file` command line switches. Example:
+
+```zsh
+# Creates standard .gitignore in top project directory (default), read the ~/.my-secrets.env file for secrets, but only get TOP_SECRET_TOKEN key and value
+secinject -s ~/.my-secrets.env -i "TOP_SECRET_TOKEN"
+```
 
 The input file should contain key-value pairs, one per line. Lines starting with export are also supported. Comments start with #.
 
@@ -46,7 +53,9 @@ export DATABASE_URL=postgres://user:pass@localhost:5432/db
 
 ### Output: Generated Swift Code
 
-The utility generates a Secrets enum with static constants.
+You can specify output Swift source file name with the `-o` or `--output-file`. The default is `Secrets.swift` and it is placed alongside your other project source files (typically {$SRCROOT}/{$TARGET_NAME}).
+
+The utility generates a Secrets.swift file with an enum representing the key/values as static constants: 
 
 ```swift
 //
@@ -65,11 +74,31 @@ enum Secrets {
 }
 ```
 
+### .gitignore
+
+By default, `secinject` creates or uses the .gitignore in the {$SRCROOT} of your project. BUT, you can specify an alternative using the `-g` or `--gitignore-file` command line switch to set the file yourself. Example:
+
+```zsh
+# Create .gitignore alongside typical project source code files (not the defailt {$SRCROOT} [top directory of the project], read the ~/.my-secrets.env file for secrets, but only get TOP_SECRET_TOKEN key and value
+secinject -g {$TARGET_NAME}/.gitignore -s ~/.my-secrets.env -i "TOP_SECRET_TOKEN"
+```
+
+If a `.gitignore` file does not exist in `${SRCROOT}`, `secinject` will create it (`${SRCROOT}` is typically the top directory of your Xcode project). If there IS a `.gitignore` file, `secinject` will make sure the generated Swift file is included in that `.gitignore` to ensure those secrets aren't committed to your source code repo.
+
+### Specific Secrets
+
+By default, `secinject` will translate/inject ALL of the key/value pairs in the `.env` file over to a `Secrets.swift` file. You can include onlyl the pairs you want with the `-i` or `--include-keys` command line switches followed by a string of comma-delimited key names. Example:
+
+```zsh
+# Create or update `.gitignore` in `{$SRCROOT}`, read default `~/.env` file for secrets, output to default `{$SRCROOT}/{$TARGET_NAME}/Secrets.swift` Swift file, but only get `TOP_SECRET_TOKEN` and `SPECIAL_URL_OF_DOOM` keys and values.
+secinject -i "TOP_SECRET_TOKEN, SPECIAL_URL_OF_DOOM"
+```
+
 ## Integration with Xcode
 
 1. Under Project > [Your Project] > Build Settings > Build Options, add/change "User Script Sandboxing" to "No".
 
-2. Add a "Run Script" build phase to your Target, **then drag it to above the "Compile Sources" phase** (important step).
+2. Under Targets > [Your Target Name] > Build Phases, add a "Run Script" build phase to your Target (click little + above "Target Dependencies"), **then drag the Run Script item to above the "Compile Sources" phase** (important step).
 
 2a. Add the invocation script in that Run Script's edit box below the Shell field (which should be set to `/bin/zsh`, FYI):
 
@@ -101,7 +130,9 @@ enum Secrets {
 }
 ```
 
-4. Build your project. The Secrets enum is now available to use in your code:
+2b. Uncheck "Based on dependency analysis" (make it run every time to be sure your secret enum is fraysh)
+
+4. Build your project. The first time you build, it may fail if you used the enum, since the generated Swift file will have just been born and the build enviornment may not have picked it up yet. You can also hand-add the file to the list under "Compile Sources" if build failures freak you out. Once the Swift file is there in your project, the Secrets enum is now available to use in your code:
 
 ```swift
 let key = Secrets.SECRET_API_KEY
@@ -109,7 +140,7 @@ let key = Secrets.SECRET_API_KEY
 
 ## Safety
 
-Inject-O-Secret enforces git safety. It will fail if a .gitignore file is not present in the working directory. It automatically appends the output filename to .gitignore if it is not already listed, preventing you from accidentally committing your secrets.
+secinject enforces git safety. It will create a `.gitignore` file if it is not present in the working directory. It automatically appends the output filename to .gitignore contents if it is not already listed, preventing you from accidentally committing your secrets.
 
-
+BUT like anything made by humans, use at your own risk. This has worked well in my own projects, but your mileage may vary. I provide ZERO warranty or guarantees about how well this program does its job, especially since it has to assume you will do your part. 
 

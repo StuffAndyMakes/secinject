@@ -26,28 +26,28 @@ while !arguments.isEmpty {
     let argument = arguments.removeFirst()
     
     switch argument {
-    case "--secrets-file":
+    case "-s", "--secrets-file":
         guard !arguments.isEmpty else {
             fputs("Error: Missing value for --secrets-file\n", stderr)
             exit(1)
         }
         envFilePath = arguments.removeFirst()
         
-    case "--output-file":
+    case "-o", "--output-file":
         guard !arguments.isEmpty else {
             fputs("Error: Missing value for --output-file\n", stderr)
             exit(1)
         }
         outputFileName = arguments.removeFirst()
         
-    case "--gitignore-file":
+    case "-g", "--gitignore-file":
         guard !arguments.isEmpty else {
             fputs("Error: Missing value for --gitignore-file\n", stderr)
             exit(1)
         }
         gitignorePath = arguments.removeFirst()
         
-    case "--include-keys":
+    case "-i", "--include-keys":
         guard !arguments.isEmpty else {
             fputs("Error: Missing value for --include-keys\n", stderr)
             exit(1)
@@ -60,10 +60,10 @@ while !arguments.isEmpty {
         let executableName = URL(fileURLWithPath: CommandLine.arguments[0]).lastPathComponent
         print("Usage: \(executableName) [options]")
         print("\nOptions:")
-        print("  --secrets-file <path>   Path to environment file (default: ~/.env)")
-        print("  --output-file <path>    Path to generated Swift file (default: Secrets.swift)")
-        print("  --gitignore-file <path> Path to .gitignore file (default: .gitignore)")
-        print("  --include-keys <list>   Comma-separated list of keys to include (default: all)")
+        print("  -s, --secrets-file <path>   Path to environment file (default: ~/.env)")
+        print("  -o, --output-file <path>    Path to generated Swift file (default: Secrets.swift)")
+        print("  -g, --gitignore-file <path> Path to .gitignore file (default: .gitignore)")
+        print("  -i, --include-keys <list>   Comma-separated list of keys to include (default: all)")
         exit(0)
         
     default:

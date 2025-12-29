@@ -6,11 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		A11366B72F0315AA00A20933 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A11366B62F0315A600A20933 /* README.md */; };
-		A11366B92F03168200A20933 /* AGENTS.md in Sources */ = {isa = PBXBuildFile; fileRef = A11366B82F03167A00A20933 /* AGENTS.md */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		A11366A72F03153C00A20933 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -130,8 +125,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A11366B72F0315AA00A20933 /* README.md in Sources */,
-				A11366B92F03168200A20933 /* AGENTS.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
