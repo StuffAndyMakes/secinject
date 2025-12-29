@@ -1,8 +1,8 @@
-# secinject (Secret Injector) Utility
+# `secinject` (Secret Injector) Utility
 
 This macOS command line utility reads a shell environment variable file (hopefully located somewhere away from your project, like ~/.env) with exports for secrets, keys, tokens, etc. and creates a swanky key/value enum out of those exports in a Swift file in your Xcode project. It's meant to be run during the build process before compilation. Its purpose is to keep hard-coded secrets out of your source code repositories. Hard coding such things is a HUGE NO-NO, of course.
 
-# Using secinject
+# Using `secinject`
 
 **secinject** is a command-line utility for macOS that safely injects environment variables into your Xcode project as a generated Swift file. This allows you to use secrets in your code without committing them to version control.
 
@@ -19,7 +19,7 @@ The default input file is `~/.env`, but can be whatever you want.
 
 The default output file is `Secrets.swift` (located in the `${SRCROOT}/${TARGET_NAME}`), but again, you can name it what you want.
 
-The generated Swift secrets file will be added to the .gitignore file located by default in `${SRCROOT}`. If `.gitignore` doesn't exist, the program will create it in `${SRCROOT}`. Also, it will include the Swift secret source file in the `.gitignore` file so that it is ignored by `git` commands, keeping your secrets and keys safe.
+The generated Swift secrets file will be added to the `.gitignore` file located by default in `${SRCROOT}`. If `.gitignore` doesn't exist, the program will create it in `${SRCROOT}`. Also, it will include the Swift secret source file in the `.gitignore` file so that it is ignored by `git` commands, keeping your secrets and keys safe.
 
 ## Installation
 
@@ -140,7 +140,7 @@ let key = Secrets.SECRET_API_KEY
 
 ## Safety
 
-secinject enforces git safety. It will create a `.gitignore` file if it is not present in the working directory. It automatically appends the output filename to .gitignore contents if it is not already listed, preventing you from accidentally committing your secrets.
+`secinject` enforces git safety. It will create a `.gitignore` file if it is not present in the working directory. It automatically appends the output filename to .gitignore contents if it is not already listed, preventing you from accidentally committing your secrets.
 
-BUT like anything made by humans, use at your own risk. This has worked well in my own projects, but your mileage may vary. I provide ZERO warranty or guarantees about how well this program does its job, especially since it has to assume you will do your part. 
+BUT like anything made by humans, use at your own risk. This has worked well in my own projects, but your mileage may vary. I provide ZERO warranty or guarantees about how well this program does its job, especially since it has to assume you will do your part. Always double-check that the Swift file this utility creates is actually included in your proper `.gitignore` file.
 
